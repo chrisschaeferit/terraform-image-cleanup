@@ -113,9 +113,8 @@ def handler(event, context):
         
         #tags instances that were marked with a Deprecated tag with a Value of %currentdate + 2 weeks 
         for imageami in resource_id:
-                ec2.create_tags(Resources=[imageami], Tags=[{'Key': 'Deprecated', 'Value': 'True {}'.format(datetime.now() + timedelta(14))}])
-    
-    
+                ec2.create_tags(Resources=[imageami], Tags=[{'Key': 'deprecated', 'Value': 'true'},{'Key': 'deprecated_date', 'Value': '{}Z'.format(datetime.now().replace(microsecond=0) + timedelta(14))}])
+        
     
     ##snapshot area will need potential rework; the call itself generates
     ##an enormous amount of return and needs minimum 25s / 400mb to run and parse
